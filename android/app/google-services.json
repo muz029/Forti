@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1040969889920",
+    "firebase_url": "https://forti029-default-rtdb.firebaseio.com",
+    "project_id": "forti029",
+    "storage_bucket": "forti029.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1040969889920:android:c988e894c922c0988a0e65",
+        "android_client_info": {
+          "package_name": "com.example.forti"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkg5Z_SUxbTGoPyp1kOXo4m94BKECZXzQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

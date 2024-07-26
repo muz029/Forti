@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The unique identifier for this Firebase project. -->
+    <string name="project_id">forti029</string>
+
+    <!-- The unique identifier for this app instance. -->
+    <string name="google_app_id">1:1040969889920:android:c988e894c922c0988a0e65</string>
+
+    <!-- The API key for this Firebase project. -->
+    <string name="google_api_key">AIzaSyAkg5Z_SUxbTGoPyp1kOXo4m94BKECZXzQ</string>
+
+    <!-- The URL of the Firebase Realtime Database associated with this project. -->
+    <string name="firebase_database_url">https://forti029-default-rtdb.firebaseio.com</string>
+
+    <!-- The unique identifier for the Google Cloud Messaging (GCM) project. -->
+    <string name="gcm_defaultSenderId">1040969889920</string>
+
+    <!-- The default Google Cloud Storage bucket associated with this Firebase project. -->
+    <string name="google_storage_bucket">forti029.appspot.com</string>
+
+    <!-- The package name of the application -->
+    <string name="project_package_name">com.example.forti</string>
+</resources>
