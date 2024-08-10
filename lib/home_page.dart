@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'login_screen.dart';
 import 'settings.dart';
+import 'notification.dart';
 
 const TWO_PI = 3.14 * 2;
 
@@ -29,6 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     _fetchUserData();
+    _setupFirebaseMessaging();
   }
 
   Future<void> _fetchUserData() async {
@@ -46,6 +49,58 @@ class _MyHomePageState extends State<MyHomePage> {
         });
       }
     }
+  }
+
+  void _setupFirebaseMessaging() {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    // Request permission for notifications
+    messaging.requestPermission();
+
+    // Get the token for this device
+    messaging.getToken().then((token) {
+      print("FCM Token: $token");
+      // Save the token in Firestore or use it to send notifications from your server
+    });
+
+    // Handle incoming messages
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Received a message while in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+        // Show a dialog or update the UI with the notification
+        _showNotificationDialog(message.notification!);
+      }
+    });
+
+    // Handle background and terminated state messages
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('Message clicked!');
+      // Navigate to the notification screen
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => NotificationScreen()),
+      );
+    });
+  }
+
+  void _showNotificationDialog(RemoteNotification notification) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(notification.title ?? "Notification"),
+        content: Text(notification.body ?? "You have a new notification"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<bool> _onWillPop(BuildContext context) async {
@@ -321,7 +376,10 @@ class _MyHomePageState extends State<MyHomePage> {
             IconButton(
               icon: Icon(Icons.notifications),
               onPressed: () {
-                // Handle notification icon press
+                // Navigate to the notification screen
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => NotificationScreen()),
+                );
               },
             ),
           ],
